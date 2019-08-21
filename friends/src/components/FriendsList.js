@@ -28,10 +28,10 @@ class FriendsList extends React.Component {
 
     return (
       <div className='friends'>
-        <AddFriend />
+        <AddFriend getData={this.getData} />
         <div className='friends-list'>
           Your Friends
-        {this.state.friends.length > 0 ? this.state.friends.map(friend => <FriendCard key={friend.id} friend={friend} />) : null}
+        {this.state.friends.length > 0 ? this.state.friends.map(friend => <FriendCard key={friend.id} friend={friend} getData={this.getData} />) : null}
         </div>
       </div>
       

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axiosWithAuth from '../utils/axiosWithAuth';
 
-const AddFriend = props => {
+const AddFriend = ({getData}) => {
   const [newFriend, setNewFriend] = useState({
     name: '',
     age: '',
@@ -16,6 +16,7 @@ const AddFriend = props => {
         console.log(res.data)
       })
       .catch(err => console.log(err.response));
+    getData();
   }
 
   const handleChange = event => {

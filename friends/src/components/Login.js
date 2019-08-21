@@ -32,9 +32,10 @@ class LoginForm extends React.Component {
     // this.setState({ ...this.state, isLoading: true })
     axios
       .post('http://localhost:5000/api/login', this.state.credentials)
-      .then(res => localStorage.setItem('token', res.data.payload))
+      .then(res => {
+        localStorage.setItem('token', res.data.payload)
+        this.props.history.push('/friends')})
       .catch(err => console.log(err.response));
-    this.props.history.push('/friends')
   }
 
   render() {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axiosWithAuth from '../utils/axiosWithAuth';
 // import { Card } from 'semantic-ui-react';
 
-const FriendCard = ({friend}) => {
+const FriendCard = ({friend, getData }) => {
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedFriend, setEditedFriend] = useState({
@@ -19,8 +19,22 @@ const FriendCard = ({friend}) => {
     setIsEditing(!isEditing);
   }
 
-  const handleUpdate = event => {
+  const handleUpdate = (event, id) => {
     event.preventDefault();
+    axiosWithAuth()
+      .put(`http://localhost:5000/api/friends/${id}`, editedFriend)
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => console.log(err.response));
+    toggleEdit();
+    axiosWithAuth()
+      .post(`http://localhost:5000/api/friends/${id}`, editedFriend)
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => console.log(err.response));
+    getData();
   }
 
   const handleDelete = (id) => {
@@ -28,12 +42,13 @@ const FriendCard = ({friend}) => {
       .delete(`http://localhost:5000/api/friends/${id}`)
       .then(res => console.log('handleDelete', res.data))
       .catch(err => console.log(err.response));
+    getData();
   }
 
   if (isEditing) {
     return (
       <div className='edit-friend-form'>
-        <form onSubmit={handleUpdate}>
+        <form onSubmit={(event) => handleUpdate(event, friend.id)}>
           <h2>Add a Friend</h2>
           <input
             type='text'
