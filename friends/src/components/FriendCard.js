@@ -28,12 +28,12 @@ const FriendCard = ({friend, getData }) => {
       })
       .catch(err => console.log(err.response));
     toggleEdit();
-    axiosWithAuth()
-      .post(`http://localhost:5000/api/friends/${id}`, editedFriend)
-      .then(res => {
-        console.log(res.data)
-      })
-      .catch(err => console.log(err.response));
+    // axiosWithAuth()
+    //   .post(`http://localhost:5000/api/friends/${id}`, editedFriend)
+    //   .then(res => {
+    //     console.log(res.data)
+    //   })
+    //   .catch(err => console.log(err.response));
     getData();
   }
 
